@@ -19,11 +19,13 @@ public class Paddle : MonoBehaviour
     {
 
         // Debug.Log(Input.mousePosition.x / Screen.width * screenWidthInUnits); // returns the position of the mouse relative to the size of the screen, shows as a unit between 0 - 1
+        
         // 16 unity units, since our Canvas Size is 6, and it follows 4:3 ratio
         // never want to put a number unless it's 
+
         mousePositionX = Input.mousePosition.x / Screen.width * screenWidthInUnits;
         Vector2 paddlePos = new Vector2 (transform.position.x, transform.position.y); // go to this position here
-        paddlePos.x = Mathf.Clamp(mousePositionX, min, max);
-        transform.position = paddlePos;
+        paddlePos.x = Mathf.Clamp(mousePositionX, min, max); // so that the paddle doesn't go past the screen bounds
+        transform.position = paddlePos; // update the paddle's position
     }
 }

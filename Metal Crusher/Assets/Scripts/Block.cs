@@ -5,10 +5,18 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
 
+    // Configuration Parameters
     [SerializeField] AudioClip breakSound;
     [SerializeField] GameObject blockSparkleVFX; // prefab particles
+    [SerializeField] int maxHits;     // keep track of the block's current state & how many hits the block can take
 
-    Level level; // cached reference.
+
+    // cached reference.
+    Level level;
+
+    [SerializeField] // State Variables
+    int timesHit; // ONLY SERIALIZED FOR DEBUG PURPOSES
+ 
 
     //Play an audio source right next to the camera 
     private void Start()
@@ -25,11 +33,25 @@ public class Block : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    // method to take care of updating the block's condition
+    private void HandleHit()
     {
-        if (tag == "Breakable")
+        // we want something to happen
+        timesHit++; // add a total number of hit
+
+        if (timesHit >= maxHits) // if the amount of times hit is greater than the maximum hit
         {
             DestroyBlock();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // nested if statement
+        if (tag == "Breakable") // whenever the ball comes into contact with the block, it'll trigger the general collision effect
+        {
+            HandleHit();
+
         }
 
     }

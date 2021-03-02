@@ -14,6 +14,7 @@ public class GameSession : MonoBehaviour
     [SerializeField] int currentScore = 0;
 
     // storing in a variable the number of 
+
     void Awake()
     {
         int gameStatusCount = FindObjectsOfType<GameSession>().Length; // looking at how many objects of type Game Status there are
